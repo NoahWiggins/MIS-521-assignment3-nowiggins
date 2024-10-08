@@ -42,8 +42,24 @@ namespace MIS_521_assignment3_nowiggins.Controllers
             {
                 return NotFound();
             }
+            ActorMovieDetailsVM amVM = new ActorMovieDetailsVM();
+            amVM.actorMovie = actorMovie;
 
-            return View(actorMovie);
+            var actors = new List<Actor>();
+            actors = await (from at in _context.Actor
+                            join am in _context.ActorMovie on at.ActorId equals am.ActorId
+                            where am.MovieId == id
+                            select at).ToListAsync();
+            var movies = new List<Movie>();
+            movies= await (from at in _context.Movie
+                            join am in _context.ActorMovie on at.MovieId equals am.MovieId
+                            where am.ActorId == id
+                            select at).ToListAsync();
+
+            amVM.actors = actors;
+            amVM.movies = movies;
+
+            return View(amVM);
         }
 
         // GET: ActorMovies/Create

@@ -1,4 +1,4 @@
-﻿@model MIS_521_assignment3_nowiggins.Models.ActorMovie
+﻿@model MIS_521_assignment3_nowiggins.Models.ActorMovieDetailsVM
 
 @{
     ViewData["Title"] = "Details";
@@ -11,20 +11,39 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Actor)
+            @Html.DisplayNameFor(model => model.actorMovie.Actor)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Actor.ActorName)
+            @Html.DisplayFor(model => model.actorMovie.Actor.ActorName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.actorMovie.Actor.ActorAge)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.actorMovie.Actor.ActorAge)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.actorMovie.Actor.ActorGender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.actorMovie.Actor.ActorGender)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Movie)
+            @Html.DisplayNameFor(model => model.actorMovie.Movie)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Movie.MovieTitle)
+            @Html.DisplayFor(model => model.actorMovie.Movie.MovieTitle)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.actorMovie.Movie.MovieGenre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.actorMovie.Movie.MovieGenre)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.actorMovie.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
