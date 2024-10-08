@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MIS_521_assignment3_nowiggins.Models.Actor>
+
+@{
+    ViewData["Title"] = "Actors";
+}
+
+<h1>Actors</h1>
+
+<p>
+    <a asp-action="Create">Add a new Actor</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ActorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActorGender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActorAge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActorIMDBHyperlink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActorPhoto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActorGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActorAge)
+            </td>
+            <td>
+                    @if (!string.IsNullOrEmpty(item.ActorIMDBHyperlink))
+                    {
+                        <a href="@item.ActorIMDBHyperlink" target="_blank">Visit IMDB Website</a>
+                    }
+            </td>
+            <td>
+                @if (item.ActorPhoto != null && item.ActorPhoto.Length != 0)
+                {
+                        <img height="150" src="@Url.Action("GetActorPhoto", "Actors", new {item.ActorId})"/>
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ActorId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ActorId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ActorId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,54 @@
+﻿@model MIS_521_assignment3_nowiggins.Models.Movie
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Movie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MovieId" />
+            <div class="form-group">
+                <label asp-for="MovieTitle" class="control-label"></label>
+                <input asp-for="MovieTitle" class="form-control" />
+                <span asp-validation-for="MovieTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieGenre" class="control-label"></label>
+                <input asp-for="MovieGenre" class="form-control" />
+                <span asp-validation-for="MovieGenre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YearOfRelease" class="control-label"></label>
+                <input asp-for="YearOfRelease" class="form-control" />
+                <span asp-validation-for="YearOfRelease" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieIMDBHyperlink" class="control-label"></label>
+                <input asp-for="MovieIMDBHyperlink" class="form-control" />
+                <span asp-validation-for="MovieIMDBHyperlink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoviePoster" class="control-label"></label>
+                <input type="file" id="MoviePoster" name="MoviePoster" multiple class="form-control" />
+                <span asp-validation-for="MoviePoster" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

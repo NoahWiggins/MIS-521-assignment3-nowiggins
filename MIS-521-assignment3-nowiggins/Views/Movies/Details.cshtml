@@ -1,0 +1,98 @@
+﻿@model MIS_521_assignment3_nowiggins.Models.MovieDetailsVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.movie.MovieTitle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.movie.MovieTitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.movie.MovieGenre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.movie.MovieGenre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.movie.YearOfRelease)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.movie.YearOfRelease)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.movie.MovieIMDBHyperlink)
+        </dt>
+        <dd class = "col-sm-10">
+            @if (!string.IsNullOrEmpty(Model.movie.MovieIMDBHyperlink))
+            {
+                <a href="@Model.movie.MovieIMDBHyperlink" target="_blank">Visit IMDB Website</a>
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.movie.MoviePoster)
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.movie.MoviePoster != null && Model.movie.MoviePoster.Length != 0)
+            {
+                <img height="200" src="@Url.Action("GetMoviePoster", "Movies", new {Model.movie.MovieId})" />
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.movie.MovieId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+<h2>@Model.movie.MovieTitle - Sentiment Analysis</h2>
+<!-- Display Combined Sentiment Score -->
+<div class="alert alert-info">
+    <strong>Combined Sentiment Score:</strong> @Model.CombinedSentimentScore
+</div>
+
+<!-- Sentiment Analysis Table -->
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Text</th>
+            <th>Score</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.SentimentAnalysisResults != null && Model.SentimentAnalysisResults.Any())
+        {
+            var counter = 1;
+            foreach (var result in Model.SentimentAnalysisResults)
+            {
+                if (result.Score == 0)
+                {
+                    continue; // Skip any zero scores if not filtered out in the controller
+                }
+
+                <tr>
+                    <td>@counter</td>
+                    <td>@result.Text</td>
+                    <td>@result.Score</td>
+                    <td>@result.Category</td>
+                </tr>
+                counter++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">No sentiment analysis available</td>
+            </tr>
+        }
+    </tbody>
+</table>
